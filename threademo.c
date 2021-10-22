@@ -25,7 +25,7 @@ void * demoThreadMethod2(void * data)
 	Dictionary * dict = (Dictionary *) data;
 	KeyValuePair * kvp = DictionaryGet("maxvalue", dict);
 	int max_value = kvp->Value.i;
-	char marked[max_value];
+	char * marked = (char *) malloc(sizeof(char) * max_value);
 	for (int i = 0; i < max_value; i++) marked[i] = 0;
 	for (int j = 2; j < max_value; j++) {
 		for (int n = j * 2; n < max_value; n += j) {
@@ -43,7 +43,8 @@ void * demoThreadMethod2(void * data)
 	}
 	ArrayResize(a, found);
 	DictionaryAddArray("primes", a, dict);
-	DictionaryAddInt("pcount", found, dict);
+	DictionaryAddInt("primescount", found, dict);
+	free(marked);
 	printf("Thread 2 done.\n");
 }
 
@@ -64,7 +65,7 @@ int main(int argc, char * argv[])
 	printf("Thread 1 printed the string %d times.\n", kvp->Value.i);
 
 	KeyValuePair * primes = DictionaryGet("primes", t2->dictionary);
-	KeyValuePair * primes_count = DictionaryGet("pcount", t2->dictionary);
+	KeyValuePair * primes_count = DictionaryGet("primescount", t2->dictionary);
 	KeyValuePair * max_value = DictionaryGet("maxvalue", t2->dictionary);
 	printf("Thread 2 found %d primes below %d: ", primes_count->Value.i, max_value->Value.i);
 	for (int i = 0; i < primes_count->Value.i; i++) {

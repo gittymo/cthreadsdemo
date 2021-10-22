@@ -53,7 +53,7 @@ int32_t _DictionaryKeyStringsEqual(uchar * ks1, uchar * ks2)
 		int d = tolower((*ks1)) - tolower((*ks2));
 		if (d != 0 || (*ks1 == 0 && *ks2 != 0) || (*ks1 != 0 && *ks2 == 0)) return 0;
 	}
-	return 1;
+	return *ks1 == 0 && *ks2 == 0;
 }
 
 void _DictionaryUpdatePointers(Dictionary * d, KeyValuePair * kvp)
