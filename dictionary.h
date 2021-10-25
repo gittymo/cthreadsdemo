@@ -5,17 +5,8 @@
 #ifndef COM_PLUS_MEVANSPN_DICT
 #define COM_PLUS_MEVANSPN_DICT
 
-#include <stdlib.h>
-#include <inttypes.h>
-#include <string.h>
-#include <ctype.h>
 #include "array.h"
-
-#define DICT_VALUE_TYPE_UNDEFINED 0
-#define DICT_VALUE_TYPE_INT 1
-#define DICT_VALUE_TYPE_FLOAT 2
-#define DICT_VALUE_TYPE_STRING 3
-#define DICT_VALUE_TYPE_ARRAY 4
+#include "globals.h"
 
 typedef unsigned char uchar;
 
