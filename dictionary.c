@@ -12,15 +12,17 @@ KeyValuePair * _KeyValuePairFree(KeyValuePair * kvp)
 			free(kvp->Key);
 			kvp->Key = NULL;
 		}
-		if (kvp->_value_type == DICT_VALUE_TYPE_STRING) {
-			free(kvp->Value.s);
-			kvp->Value.s = NULL;
+		if (kvp->_value_type == DATA_TYPE_STRING) {
+			if (kvp->Value.s != NULL) {
+				free(kvp->Value.s);
+				kvp->Value.s = NULL;
+			}
 		}
-		if (kvp->_value_type == DICT_VALUE_TYPE_ARRAY) {
+		if (kvp->_value_type == DATA_TYPE_ARRAY) {
 			// ArrayFree(kvp->Value.array);
 			kvp->Value.array = NULL;
 		}
-		kvp->_value_type = DICT_VALUE_TYPE_UNDEFINED;
+		kvp->_value_type = DATA_TYPE_UNDEFINED;
 		if (kvp->next != NULL) {
 			kvp->next->previous = kvp->previous;
 		}
@@ -91,7 +93,7 @@ void DictionaryAddInt(uchar * key, int32_t value, Dictionary * d)
 		kvp->Key = (uchar *) malloc(sizeof(uchar) * (strlen(key) + 1));
 		strcpy(kvp->Key, key);
 		kvp->Value.i = value;
-		kvp->_value_type = DICT_VALUE_TYPE_INT;
+		kvp->_value_type = DATA_TYPE_INT;
 		_DictionaryUpdatePointers(d, kvp);
 	}
 }
@@ -103,7 +105,7 @@ void DictionaryAddFloat(uchar * key, float value, Dictionary * d)
 		kvp->Key = (uchar *) malloc(sizeof(uchar) * (strlen(key) + 1));
 		strcpy(kvp->Key, key);
 		kvp->Value.f = value;
-		kvp->_value_type = DICT_VALUE_TYPE_FLOAT;
+		kvp->_value_type = DATA_TYPE_FLOAT;
 		_DictionaryUpdatePointers(d, kvp);
 	}
 }
@@ -117,7 +119,7 @@ void DictionaryAddString(uchar * key, uchar * value, Dictionary * d)
 		kvp->Value.s = value != NULL ? (uchar *) malloc(sizeof(uchar) * (strlen(value) + 1)) : value;
 		if (value != NULL) {
 			strcpy(kvp->Value.s, value);
-			kvp->_value_type = value != NULL ? DICT_VALUE_TYPE_STRING : DICT_VALUE_TYPE_UNDEFINED;
+			kvp->_value_type = value != NULL ? DATA_TYPE_STRING : DATA_TYPE_UNDEFINED;
 		}
 		_DictionaryUpdatePointers(d, kvp);
 	}
@@ -130,7 +132,7 @@ void DictionaryAddArray(uchar * key, Array * array, Dictionary * d)
 		kvp->Key = (uchar *) malloc(sizeof(uchar) * (strlen(key) + 1));
 		strcpy(kvp->Key, key);
 		kvp->Value.array = array;
-		kvp->_value_type = DICT_VALUE_TYPE_ARRAY;
+		kvp->_value_type = DATA_TYPE_ARRAY;
 		_DictionaryUpdatePointers(d, kvp);
 	}
 }
