@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <inttypes.h>
+#include "error.h"
 
 typedef struct _array {
 	void * ptr;
@@ -13,9 +14,9 @@ typedef struct _array {
 } Array;
 
 Array * ArrayCreate(int32_t entries, int32_t size);
-void ArrayWrite(void * value, Array * array, int32_t index);
-void ArrayRead(void * value_ptr, Array * array, int32_t index);
-void ArrayFree(Array * array);
-void ArrayResize(Array * array, int32_t new_size);
+int32_t ArrayWrite(void * value, Array * array, int32_t index);
+int32_t ArrayRead(void * value_ptr, Array * array, int32_t index);
+int32_t ArrayFree(Array * array);
+int32_t ArrayResize(Array * array, int32_t new_size);
 
 #endif

@@ -7,6 +7,7 @@
 
 #include "array.h"
 #include "globals.h"
+#include "error.h"
 
 #define ERROR_INVALID_DICTIONARY 1
 #define ERROR_INVALID_KEY 2

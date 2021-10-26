@@ -2,7 +2,6 @@
 		(C)2021 Morgan Evans */
 
 #include "dictionary.h"
-#include "error.h"
 
 KeyValuePair * _KeyValuePairCreate(const char * key, Dictionary * d)
 {
