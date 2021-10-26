@@ -8,6 +8,11 @@
 #include "array.h"
 #include "globals.h"
 
+#define ERROR_INVALID_DICTIONARY 1
+#define ERROR_INVALID_KEY 2
+#define ERROR_KEY_EXISTS 3
+#define ERROR_INVALID_KEY_VALUE_PAIR 4
+
 typedef unsigned char uchar;
 
 typedef struct _keyvaluepair {
@@ -30,15 +35,16 @@ typedef struct _dictionary {
 /*	Public methods */
 Dictionary * DictionaryCreate();
 int32_t DictionaryContains(uchar * key, Dictionary * d);
-void DictionaryAddInt(uchar * key, int32_t value, Dictionary * d);
-void DictionaryAddFloat(uchar * key, float value, Dictionary * d);
-void DictionaryAddString(uchar * key, uchar * value, Dictionary * d);
-void DictionaryAddArray(uchar * key, Array * array, Dictionary * d);
+int32_t DictionaryAddInt(uchar * key, int32_t value, Dictionary * d);
+int32_t DictionaryAddFloat(uchar * key, float value, Dictionary * d);
+int32_t DictionaryAddString(uchar * key, uchar * value, Dictionary * d);
+int32_t DictionaryAddArray(uchar * key, Array * array, Dictionary * d);
 KeyValuePair * DictionaryGet(uchar * key, Dictionary * d);
 void DictionaryRemove(uchar * key, Dictionary * d);
 void DictionaryFree(Dictionary * d);
 
 /*	Private methods - do not use externally. */
+KeyValuePair * _KeyValuePairCreate(const char * key, Dictionary * d);
 KeyValuePair * _KeyValuePairFree(KeyValuePair * kvp);
 int32_t _DictionaryValid(Dictionary * d);
 int32_t _DictionaryKeyStringsEqual(uchar * ks1, uchar * ks2);

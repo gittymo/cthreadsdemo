@@ -1,3 +1,6 @@
+test: libdictionary libarray libthread threademo.c
+	gcc -g -o threaddemo threademo.c -ldictionary -larray -lthread -L./ -I./
+	
 dictionary.o: dictionary.c dictionary.h
 	gcc -g -c -o dictionary.o dictionary.c
 
@@ -15,9 +18,6 @@ thread.o: thread.h thread.c
 
 libthread: thread.o
 	ar rcs libthread.a thread.o
-
-test: libdictionary libarray libthread threademo.c
-	gcc -g -o threaddemo threademo.c -ldictionary -larray -lthread -L./ -I./
 
 clean:
 	rm *.o
