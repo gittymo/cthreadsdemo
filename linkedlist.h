@@ -5,9 +5,13 @@
 
 #include "globals.h"
 #include "array.h"
+#include "error.h"
 
 #define LLIST_START -2
 #define LLIST_END	-1
+
+#define ERROR_LINKED_LIST_INVALID 1
+#define ERROR_LINKED_LIST_NOT_FOUND 2
 
 typedef struct _llist_link {
 	union {
@@ -25,6 +29,7 @@ typedef struct {
 	int32_t size;
 } LinkedList;
 
+/*	Public methods */
 LinkedList * LinkedListCreate();
 void LinkedListAddInt(int32_t value, LinkedList * ll, int32_t offset);
 void LinkedListAddFloat(float value, LinkedList * ll, int32_t offset);
@@ -39,5 +44,9 @@ Link * LinkedListGetUsingIndex(LinkedList * ll, int32_t index);
 void LinkedListRemoveUsingIndex(LinkedList * ll, int32_t index);
 void LinkedListRemove(LinkedList * ll, Link * l);
 void LinkedListFree(LinkedList * ll);
+int32_t LinkedListHasNext(LinkedList * ll);
+int32_t LinkedListHasPrevious(LinkedList * ll);
 
+/*	Private methods. */
+Link * _LinkedListAddLink(LinkedList * ll, int32_t offset);
 #endif

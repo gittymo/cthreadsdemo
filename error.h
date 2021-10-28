@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ERROR_MALLOC_FAILED 1
+#define ERROR_MALLOC_FAILED -1
+#define ERROR_NONE	0
 
 static int32_t ERROR_NUMBER = 0;
 static char ERROR_MESSAGE[4096];
